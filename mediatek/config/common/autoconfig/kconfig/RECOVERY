@@ -28,7 +28,7 @@
 #
 # kdb/kgdb
 #
-CONFIG_HAVE_ARCH_KGDB=y
+# CONFIG_HAVE_ARCH_KGDB is not set
 # CONFIG_KGDB is not set
 
 #
@@ -59,7 +59,7 @@ CONFIG_PANIC_TIMEOUT=1
 # CONFIG_DEVMEM is not set
 # CONFIG_DEVKMEM is not set
 
-CONFIG_CMDLINE="console=ttyMT3,921600n1 vmalloc=496M slub_max_order=0"
+CONFIG_CMDLINE="console=ttyMT3,921600n1 vmalloc=496M slub_max_order=0 androidboot.selinux=permissive"
 # CONFIG_CFG80211_DEBUGFS is not set
 # CONFIG_LIB80211_DEBUG is not set
 # CONFIG_DM_DEBUG is not set
@@ -68,21 +68,6 @@ CONFIG_CMDLINE="console=ttyMT3,921600n1 vmalloc=496M slub_max_order=0"
 # CONFIG_USB_MTK_DEBUG_FS is not set
 # CONFIG_USB_MTK_DEBUG is not set
 # CONFIG_JBD_DEBUG is not set
-# CONFIG_DEBUG_FS is not set
-# CONFIG_ZRAM_DEBUG is not set
-# CONFIG_DEBUG_KERNEL is not set
-# CONFIG_SCHED_DEBUG is not set
-# CONFIG_DEBUG_PREEMPT is not set
-# CONFIG_DEBUG_SPINLOCK is not set
-# CONFIG_DEBUG_MUTEXES is not set
-# CONFIG_MT_DEBUG_MUTEXES is not set
-# CONFIG_DEBUG_LOCK_ALLOC is not set
-# CONFIG_DEBUG_LOCKDEP is not set
-# CONFIG_DEBUG_BUGVERBOSE is not set
-# CONFIG_DEBUG_INFO is not set
-# CONFIG_BUG is not set
-CONFIG_DEFAULT_MESSAGE_LOGLEVEL=1
-# CONFIG_HAVE_DMA_API_DEBUG is not set
 
 #
 # Kernel hacking
@@ -163,3 +148,89 @@ CONFIG_DEFAULT_MESSAGE_LOGLEVEL=1
 
 # MTK printk controller
 # CONFIG_MT_PRINTK_UART_CONSOLE is not set
+
+
+#
+# General setup
+#
+# CONFIG_SWAP is not set
+
+#
+# RCU Subsystem
+#
+CONFIG_RD_GZIP=y
+CONFIG_RD_XZ=y
+CONFIG_CC_OPTIMIZE_FOR_SIZE=y
+CONFIG_CC_STRIP_SYMBOL=y
+# CONFIG_KALLSYMS is not set
+# CONFIG_KALLSYMS_ALL is not set
+
+#
+# Library routines
+#
+# CONFIG_XZ_DEC_X86 is not set
+# CONFIG_XZ_DEC_POWERPC is not set
+CONFIG_XZ_DEC_ARM=y
+CONFIG_XZ_DEC_ARMTHUMB=y
+# CONFIG_XZ_DEC_IA64 is not set
+# CONFIG_XZ_DEC_SPARC is not set
+# CONFIG_XZ_DEC_TEST is not set
+
+
+
+# CONFIG_HAVE_DMA_API_DEBUG is not set
+
+# CONFIG_CPU_FREQ_GOV_PERFORMANCE is not set
+# CONFIG_CPU_FREQ_GOV_POWERSAVE is not set
+# CONFIG_CPU_FREQ_GOV_USERSPACE is not set
+# CONFIG_CPU_FREQ_GOV_ONDEMAND is not set
+
+# CONFIG_ZRAM is not set
+# CONFIG_ZRAM_DEBUG is not set
+# CONFIG_DEBUG_FS is not set
+# CONFIG_DEBUG_KERNEL is not set
+# CONFIG_SCHED_DEBUG is not set
+# CONFIG_DEBUG_PREEMPT is not set
+# CONFIG_DEBUG_SPINLOCK is not set
+# CONFIG_DEBUG_MUTEXES is not set
+# CONFIG_MT_DEBUG_MUTEXES is not set
+# CONFIG_DEBUG_LOCK_ALLOC is not set
+# CONFIG_DEBUG_LOCKDEP is not set
+# CONFIG_DEBUG_BUGVERBOSE is not set
+# CONFIG_DEBUG_INFO is not set
+# CONFIG_BUG is not set
+CONFIG_DEFAULT_MESSAGE_LOGLEVEL=1
+
+#
+# CD-ROM/DVD Filesystems
+#
+# CONFIG_ISO9660_FS is not set
+# CONFIG_JOLIET is not set
+# CONFIG_ZISOFS is not set
+
+#
+# DOS/FAT/NT Filesystems
+#
+CONFIG_NTFS_FS=y
+# CONFIG_NTFS_DEBUG is not set
+CONFIG_NTFS_RW=y
+
+CONFIG_NLS_CODEPAGE_860=y
+CONFIG_NLS_CODEPAGE_861=y
+CONFIG_NLS_CODEPAGE_1250=y
+CONFIG_NLS_CODEPAGE_1251=y
+CONFIG_NLS_KOI8_R=y
+CONFIG_NLS_KOI8_U=y
+
+# CONFIG_PROC_PAGE_MONITOR is not set
+
+# CONFIG_MTK_FM is not set 
+# CONFIG_MTK_FM_ SUPPORT is not set
+# CONFIG_MTK_FM_CHIP is not set
+# CONFIG_MTK_FMRADIO is not set
+
+
+# CONFIG_MTK_COMBO is not set
+# CONFIG_MTK_COMBO_BT is not set
+# CONFIG_MTK_COMBO_GPS is not set
+# CONFIG_MTK_COMBO_WIFI is not set

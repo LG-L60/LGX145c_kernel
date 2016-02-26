@@ -10,5 +10,6 @@ merge-order   := \
     flavor \
     $(if $(call seq,user,$(TARGET_BUILD_VARIANT)),USER,) \
     $(if $(call seq,userdebug,$(TARGET_BUILD_VARIANT)),USER,) \
-    $(if $(call seq,userdebug,$(TARGET_BUILD_VARIANT)),USERDEBUG,)
+    $(if $(call seq,userdebug,$(TARGET_BUILD_VARIANT)),USERDEBUG,) \
+    $(if $(call seq,recovery,$(TARGET_BUILD_VARIANT)),RECOVERY,)
 
