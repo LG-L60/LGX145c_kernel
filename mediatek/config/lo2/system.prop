@@ -1,0 +1,90 @@
+#
+# system.prop for generic sdk
+#
+
+rild.libpath=/system/lib/mtk-ril.so
+rild.libargs=-d /dev/ttyC0
+
+
+# MTK, Infinity, 20090720 {
+wifi.interface=wlan0
+# MTK, Infinity, 20090720 }
+
+# MTK, mtk03034, 20101210 {
+ro.mediatek.wlan.wsc=1
+# MTK, mtk03034 20101210}
+# MTK, mtk03034, 20110318 {
+ro.mediatek.wlan.p2p=1
+# MTK, mtk03034 20110318}
+
+# MTK, mtk03034, 20101213 {
+mediatek.wlan.ctia=0
+# MTK, mtk03034 20101213}
+
+
+#
+wifi.tethering.interface=ap0
+#
+
+ro.opengles.version=131072
+
+wifi.direct.interface=p2p0
+dalvik.vm.heapgrowthlimit=96m
+dalvik.vm.heapsize=128m
+
+# USB MTP WHQL
+ro.sys.usb.mtp.whql.enable=0
+
+# Power off opt in IPO
+sys.ipo.pwrdncap=2
+
+ro.sys.usb.storage.type=mtp,mass_storage
+
+# USB BICR function
+ro.sys.usb.bicr=yes
+
+# USB Charge only function
+ro.sys.usb.charging.only=yes
+
+# audio
+ro.camera.sound.forced=0
+ro.audio.silent=0
+
+ro.zygote.preload.enable=0
+
+
+ro.kernel.zio=38,108,105,16
+
+# //<2014/03/13-34807-georgelin, AMX Policy 2.o regarding Google -- Google Client ID -- android-americamovil-mx
+#//<2014-05-12-37810-RichardLi,[5503/5502][Lo1/Lo2] Update the Clinte-ID according to LG request
+#//<2014-05-13-37933-RichardLi,[5503/5502][Lo1/Lo2] Modify the Client ID and CTS configuration according to LG request
+#//<2014-05-14-38008-RichardLi,[5502/5503][Lo1/Lo2] Modify the light sensor configurtion for CTS and change Client ID
+ro.com.google.clientidbase=android-om-lge
+ro.com.google.clientidbase.gmm=android-om-lge
+ro.com.google.clientidbase.yt=android-om-lge
+#//<2014-05-14-38008-RichardLi
+#//<2014-05-13-37933-RichardLi
+#//<2014-05-12-37810-RichardLi
+#//<2014-05-08-37495-PengXu,[5502][Google Client ID]Modify google client id for Mexican
+#ro.com.google.clientidbase.vs=android-lge
+#//>2014-05-08-37495-PengXu
+#//<2014-06-21-39778-RichardLi,[5502][Client ID] Update 5502 client ID according to LG google TAM request
+ro.com.google.clientidbase.am=android-americamovil-{country}
+ro.com.google.clientidbase.ms=android-americamovil-{country}
+#//<2014-06-21-39778-RichardLi
+# //>2014/03/13-34807-georgelin
+
+# //<2014/03/14-chenmingfan, Modify default Time zone
+# //<2014/7/11-40712-xingzi.ruan-< [5502_Settings]Modify default Time zone without sim card for Chile_Claro version >
+#persist.sys.timezone=America/Mexico_City
+# //>2014/7/11-40712-xingzi.ruan
+# //>2014/03/14-chenmingfan
+
+# //<2014/03/18-34693-georgelin, Change the power-on and power-off animation.
+ro.operator.optr=CUST
+# //>2014/03/18-34693-georgelin
+
+
+# //<2014/06/09-tedwu, Change the long power key press time to 1s in kernel power off charging.
+sys.ipod_pwrkey_time=1000
+# //>2014/06/09-tedwu
