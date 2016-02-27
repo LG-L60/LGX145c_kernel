@@ -452,6 +452,12 @@ config MTK_VIBRATOR # MT6516_VIBRATOR MT6573_VIBRATOR
         bool "MediaTek Vibrator Driver"
         default y
 
+config MTK_VIBRATOR_INTENSITY
+	tristate "Vibrator Intensity Controller for MTK Vibrator"
+	default n
+	help
+	  Vibrator Intensity Controller for MTK Vibrator v1.0
+
 # WatchDog
 config MTK_WD_KICKER # WD_KICKER
         tristate "WatchDog Kicer"

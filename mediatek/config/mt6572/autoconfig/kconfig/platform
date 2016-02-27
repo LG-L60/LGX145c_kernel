@@ -928,6 +928,8 @@ CONFIG_LIB80211_DEBUG=y
 # Device Drivers
 #
 
+CONFIG_MTK_VIBRATOR_INTENSITY=y
+
 #
 # Generic Driver Options
 #

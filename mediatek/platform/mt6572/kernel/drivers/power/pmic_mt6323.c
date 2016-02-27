@@ -1465,7 +1465,7 @@ ANALDO:
 VTCXO
 VA
 VCAMA
-VCN33 (¦³wifi/bt ¶}Ãö)
+VCN33 (\A6\B3wifi/bt \B6}\C3\F6)
 VCN28
 
 DIGLDO:
@@ -2057,6 +2057,7 @@ void dct_pmic_VSIM2_sel(kal_uint32 volt)
     }
 }
 
+/*
 void dct_pmic_VIBR_sel(kal_uint32 volt)
 {
     xlog_printk(ANDROID_LOG_INFO, "Power/PMIC", "****[dct_pmic_VIBR_sel] value=%d \n", volt);
@@ -2074,6 +2075,7 @@ void dct_pmic_VIBR_sel(kal_uint32 volt)
         xlog_printk(ANDROID_LOG_INFO, "Power/PMIC", "Error Setting %d. DO nothing.\r\n", volt);
     }
 }
+*/
 
 void dct_pmic_VM_sel(kal_uint32 volt)
 {
@@ -3331,7 +3333,7 @@ void pmic_ldo_vol_sel(MT65XX_POWER powerId, MT65XX_POWER_VOLTAGE powerVolt)
     else if(powerId == MT6323_POWER_LDO_VSIM2)        { dct_pmic_VSIM2_sel(powerVolt); }
     else if(powerId == MT6323_POWER_LDO_VRTC)        { xlog_printk(ANDROID_LOG_INFO, "Power/PMIC", "[dct_pmic_VRTC_enable] No vlotage can setting!\n");}
     else if(powerId == MT6323_POWER_LDO_VCAM_AF)        { dct_pmic_VCAM_AF_sel(powerVolt); }
-    else if(powerId == MT6323_POWER_LDO_VIBR)        { dct_pmic_VIBR_sel(powerVolt); }
+/*    else if(powerId == MT6323_POWER_LDO_VIBR)        { dct_pmic_VIBR_sel(powerVolt); }*/
     else if(powerId == MT6323_POWER_LDO_VM)        { dct_pmic_VM_sel(powerVolt); }
     else if(powerId == MT6323_POWER_LDO_VRF18)        { xlog_printk(ANDROID_LOG_INFO, "Power/PMIC", "[dct_pmic_VRF18_enable] No vlotage can setting!\n");}
     else if(powerId == MT6323_POWER_LDO_VIO18)        { xlog_printk(ANDROID_LOG_INFO, "Power/PMIC", "[dct_pmic_VIO18_enable] No vlotage can setting!\n");}

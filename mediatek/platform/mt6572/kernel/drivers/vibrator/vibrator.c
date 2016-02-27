@@ -67,6 +67,7 @@ void vibr_power_set(void)
 	vibr_voltage = hw->vosel;
 	printk("[vibrator]vibr_init: vibrator set voltage = %d\n", vibr_voltage);
 	//upmu_set_rg_vibr_vosel(hw->vib_vol);
+	if((vibr_voltage) >= 0 && (vibr_voltage) <= 3400) {upmu_set_rg_vibr_vosel(((vibr_voltage)-1200)/300);}
 }
 
 struct vibrator_hw* mt_get_cust_vibrator_hw(void)
