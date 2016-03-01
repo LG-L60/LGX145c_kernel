@@ -93,6 +93,7 @@ extern u8 *emmc_bounce;
 extern int emmc_ipanic_write(void *buf, int off, int len);
 int ipanic_write_log_buf(unsigned int off, struct ipanic_log_index start, struct ipanic_log_index end)
 {
+#ifdef CONFIG_PRINTK
 	int saved_oip;
 	int rc, rc2;
 	unsigned int last_chunk = 0, copy_count = 0;
@@ -135,6 +136,7 @@ int ipanic_write_log_buf(unsigned int off, struct ipanic_log_index start, struct
 		off += rc2;
 	}
 	return copy_count;
+#endif	
 }
 
 #else
@@ -146,6 +148,7 @@ extern struct mtd_ipanic_data mtd_drv_ctx;
 extern int mtd_ipanic_block_write(struct mtd_ipanic_data *ctx, loff_t to, int bounce_len);
 int ipanic_write_log_buf(struct mtd_info *mtd, unsigned int off, struct ipanic_log_index start, struct ipanic_log_index end)  
 {
+#ifdef CONFIG_PRINTK
 	struct mtd_ipanic_data *ctx = &mtd_drv_ctx;
 	int saved_oip;
 	int rc, rc2;
@@ -199,6 +202,7 @@ int ipanic_write_log_buf(struct mtd_info *mtd, unsigned int off, struct ipanic_l
 		off += rc2;
 	}
 	return copy_count;
+#endif
 }
 
 #endif //MTK_EMMC_SUPPORT

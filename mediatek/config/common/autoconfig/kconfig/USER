@@ -120,6 +120,8 @@ CONFIG_DEFAULT_MESSAGE_LOGLEVEL=1
 # Kernel Net Logging
 #
 # CONFIG_MTK_NET_LOGGING is not set
+# CONFIG_NETFILTER_NETLINK_LOG is not set
+# CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG is not set
 
 # Kernel Performance Events And Counters
 # CONFIG_PERF_EVENTS is not set
@@ -163,3 +165,5 @@ CONFIG_DEFAULT_MESSAGE_LOGLEVEL=1
 
 # MTK printk controller
 # CONFIG_MT_PRINTK_UART_CONSOLE is not set
+
+# CONFIG_ANDROID_LOGGER is not set

@@ -235,6 +235,7 @@ void* ipanic_next_write(void* (*next)(void *data, unsigned char *buffer, size_t 
 
 static int ipanic_write_android_buf(unsigned int off, int type)
 {
+#ifdef CONFIG_ANDROID_LOGGER
 	unsigned int copy_count = 0;
 
 	while (1) {
@@ -255,6 +256,7 @@ static int ipanic_write_android_buf(unsigned int off, int type)
 	}
 	xlog_printk(ANDROID_LOG_DEBUG, IPANIC_LOG_TAG, "%s: dump droid log type %d, count %d\n", __FUNCTION__, type, copy_count);
 	return copy_count;
+#endif
 }
 
 static int ipanic_write_all_android_buf(int offset, struct ipanic_header *hdr)
