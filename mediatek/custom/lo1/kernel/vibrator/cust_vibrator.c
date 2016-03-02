@@ -34,7 +34,8 @@ static struct vibrator_hw cust_vibrator_hw = {
 	.vib_limit = 9,
   #endif
 //<2014/05/19-38270-Richardli, [5503][Lo1]Change vibrate voltage from 3.3 to 3.0 according to LG DQA request
-  	.vosel = VOL_3000,
+// обычные китайфонские 2.8 В как у всех в самый раз
+  	.vosel = VOL_2800,
 //<2014/05/19-38270-Richardli
 };
 

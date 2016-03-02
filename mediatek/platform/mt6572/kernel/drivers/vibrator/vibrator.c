@@ -13,6 +13,7 @@
 #include <linux/kernel.h>
 #include <linux/types.h>
 #include <linux/device.h>
+#include <linux/delay.h>
 #include <mach/mt_typedefs.h>
 #include <cust_vibrator.h>
 #include <mach/upmu_common_sw.h>
@@ -45,7 +46,7 @@ extern void dct_pmic_VIBR_enable(kal_bool dctEnable);
 
 void vibr_Enable_HW(void)
 {
-	
+	upmu_set_rg_audpwdbmicbias(0);
 	// dct_pmic_VIBR_enable(1);
 	hwPowerOn(MT6323_POWER_LDO_VIBR, vibr_voltage, "VIBR");
 	printk("vibrator enable register = 0x%x\n", vibr_pmic_pwrap_read(0x0542));
@@ -59,6 +60,8 @@ void vibr_Disable_HW(void)
 	hwPowerDown(MT6323_POWER_LDO_VIBR, "VIBR");
 	printk("vibrator disable register = 0x%x\n", vibr_pmic_pwrap_read(0x0542));
 	printk("[vibrator]vibr_Disable After\n");
+	mdelay(100);
+	upmu_set_rg_audpwdbmicbias(1);
 }
 
 void vibr_power_set(void)
