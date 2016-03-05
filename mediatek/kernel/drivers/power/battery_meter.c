@@ -2858,7 +2858,11 @@ kal_int32 battery_meter_get_charging_current(void)
     }
     else
     {
+#if defined(CONFIG_BATTERY_DISCHARGE_CURRENT_SENSE)
+        ICharging = -oam_i_2 / 10;
+#else
         ICharging = 0;
+#endif        
     }
 
     return ICharging;
