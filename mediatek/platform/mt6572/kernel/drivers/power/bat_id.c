@@ -24,7 +24,7 @@ static char memory_data[32*4];
 static char Family_Code, Max_Voltage, page2_CheckSum, page3_CheckSum, page4_Str[32+1];
 static int  Custom_ID;
 static const char page4_Str_MOTO[] = "COPR2012MOTOROLA E.P CHARGE ONLY";
-kal_uint8 battery_pack_id = BATTERY_PACK_ERROR;
+kal_uint8 battery_pack_id = BATTERY_PACK_BL_44JN;
 //>2012/7/9-tedwu
 
 void bat_id_init_spinLock(void)

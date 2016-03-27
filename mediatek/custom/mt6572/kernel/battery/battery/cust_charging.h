@@ -35,7 +35,7 @@
 #define V_PRE2CC_THRES	 		3400	//mV
 #define V_CC2TOPOFF_THRES		4050
 #define RECHARGING_VOLTAGE      4137	//<2014/06/10-tedwu, customize re-charge voltage for LO2.
-#define CHARGING_FULL_CURRENT    150	//mA
+#define CHARGING_FULL_CURRENT    50	//mA
 //<2014/04/07-Yuting Shih. Add the temperature level of battery check.
 /* Over 45 degree and under 55 degree
 **  - Under 4.0V, 450mA

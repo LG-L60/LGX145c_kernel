@@ -498,13 +498,18 @@ static void hw_bc11_dump_register(void)
     battery_xlog_printk(BAT_LOG_FULL, "gpio_number=0x%x,gpio_on_mode=%d,gpio_off_mode=%d\n", gpio_number, gpio_on_mode, gpio_off_mode);
 	
 	upmu_set_rg_usbdl_rst(1);		//force leave USBDL mode
-/*
+#if defined(ARIMA_LO1_HW)
+    if (BATTERY_PACK_BL_44JH == battery_pack_id)
+        bq24158_config_interface_liao(0x06,0x2A); //=> 0x2A, safety current= 0.91A, voltage=4.4V
+    else //BATTERY_PACK_BL_44JN
+        bq24158_config_interface_liao(0x06,0x28); //=> 0x28, safety current= 0.91A, safety voltage=4.36V
+#else
 	#if defined(HIGH_BATTERY_VOLTAGE_SUPPORT)
         bq24158_config_interface_liao(0x06,0x77); // ISAFE = 1250mA, VSAFE = 4.34V
     #else
         bq24158_config_interface_liao(0x06,0x70);
 	#endif
-*/	    
+#endif	    
     bq24158_config_interface_liao(0x00,0xC0);	//kick chip watch dog
     bq24158_config_interface_liao(0x01,0xb8);	//TE=1, CE=0, HZ_MODE=0, OPA_MODE=0
 //<2014/05/04-tedwu, Customize Battery/Charging parameters.
