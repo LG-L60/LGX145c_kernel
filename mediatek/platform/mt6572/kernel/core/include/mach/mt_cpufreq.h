@@ -18,7 +18,10 @@
 #define PLL_DIV8_FREQ        (PLL_MIN_FREQ)  //KHZ
 
 
+#define DVFS_E2              (1794000)   // KHz, Extended OD
+#define DVFS_E1              (1703000)   // KHz, Extended OD
 #define DVFS_D0              (1599000)   // KHz, OD
+#define DVFS_E0              (1508000)   // KHz, Extended OD
 #define DVFS_D1              (1404000)   // KHz, OD
 #define DVFS_D2              (1300000)   // KHz, OD
 #define DVFS_D3              (1209000)   // KHz, OD

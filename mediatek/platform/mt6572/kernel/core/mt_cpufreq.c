@@ -39,6 +39,11 @@
 #include "mach/mt_dcm.h"
 #include "mach/mt_ptp.h"
 /**************************************************
+* enable CPU OVERCLOCK
+***************************************************/
+#define CONFIG_MTK_CPU_OVERCLOCK
+
+/**************************************************
 * enable for DVFS random test
 ***************************************************/
 //#define MT_DVFS_RANDOM_TEST
@@ -80,7 +85,11 @@ static unsigned int g_vcore = DVFS_V1;
 static unsigned int g_limited_power = 0;
 
 static unsigned int g_limited_max_ncpu;
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+static unsigned int g_limited_max_freq = DVFS_D2; // 1.3GHz
+#else
 static unsigned int g_limited_max_freq;
+#endif
 //static unsigned int g_limited_min_freq;
 static unsigned int g_cpufreq_get_ptp_level = 0;
 static unsigned int g_cpufreq_power_tbl_num = 0;
@@ -132,8 +141,18 @@ struct mt_cpu_power_info
 * MT6572 E1 DVFS Table
 ****************************/
 static struct mt_cpu_freq_info mt6572_freqs_e1[] = {
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+///	включать не более 1 частоты и при этом выключать 1 частоту!
+//  OP(DVFS_E2, DVFS_V0),
+//  OP(DVFS_E1, DVFS_V0),
+//  OP(DVFS_D0, DVFS_V0),
+    OP(DVFS_E0, DVFS_V0),
+//  OP(DVFS_D1, DVFS_V0),
+#endif
     OP(DVFS_D2, DVFS_V0),
+#if !defined(CONFIG_MTK_CPU_OVERCLOCK)
     OP(DVFS_D3, DVFS_V0),
+#endif
     OP(DVFS_F1, DVFS_V1),
     OP(DVFS_F2, DVFS_V1),
     OP(DVFS_F3, DVFS_V1),
@@ -159,11 +178,21 @@ static struct mt_cpu_tbl_info spm_pmic_config[MAX_SPM_PMIC_TBL];
 static unsigned int cpu_num = 0;
 /* Power Golden table */
 static struct mt_cpu_power_info mt_cpu_golden_power[] = {
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+    {.cpufreq_khz = DVFS_E2, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 795 },
+    {.cpufreq_khz = DVFS_E1, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 724 },
     {.cpufreq_khz = DVFS_D0, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 724 },
+    {.cpufreq_khz = DVFS_E0, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 690 },
+#endif
     {.cpufreq_khz = DVFS_D1, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 653 },
     {.cpufreq_khz = DVFS_D2, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 618 },
     {.cpufreq_khz = DVFS_D3, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 2, .cpufreq_power = 582 },
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+    {.cpufreq_khz = DVFS_E2, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 463 },
+    {.cpufreq_khz = DVFS_E1, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 445 },
     {.cpufreq_khz = DVFS_D0, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 423 },
+    {.cpufreq_khz = DVFS_E0, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 405 },
+#endif
     {.cpufreq_khz = DVFS_F1, .cpufreq_volt = DVFS_V1, .cpufreq_ncpu = 2, .cpufreq_power = 422 },
     {.cpufreq_khz = DVFS_D1, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 383 },
     {.cpufreq_khz = DVFS_D2, .cpufreq_volt = DVFS_V0, .cpufreq_ncpu = 1, .cpufreq_power = 363 },
@@ -1110,7 +1139,11 @@ static int mt_cpufreq_init(struct cpufreq_policy *policy)
     policy->cpuinfo.min_freq = mt_cpu_freqs[mt_cpu_freqs_num-1].cpufreq_khz;
 
     policy->cur = DEFAULT_FREQ;
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+    policy->max = DVFS_D2; // 1.3GHz
+#else
     policy->max = mt_cpu_freqs[0].cpufreq_khz;
+#endif
     policy->min = mt_cpu_freqs[mt_cpu_freqs_num-1].cpufreq_khz;
 
 
@@ -1254,7 +1287,11 @@ void mt_cpufreq_thermal_protect(unsigned int limited_power)
     {
         //restore max_ncpu and freq to maximum
         g_limited_max_ncpu = num_possible_cpus();
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+        g_limited_max_freq = DVFS_D2; // 1.3GHz
+#else
         g_limited_max_freq = mt_cpu_freqs[0].cpufreq_khz;
+#endif
         g_max_power_OPP = 0;
 
         //cpufreq_driver_target(policy, g_limited_max_freq, CPUFREQ_RELATION_L);
@@ -1674,7 +1711,11 @@ static int mt_cpufreq_pdrv_probe(struct platform_device *pdev)
     g_normal_max_OPP = get_normal_max_opp_idx();
 
     // setup global information max_freq and max_ncpu are for thermal
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+    g_limited_max_freq = DVFS_D2; // 1.3GHz
+#else
     g_limited_max_freq = mt_cpu_freqs[0].cpufreq_khz;
+#endif
     g_limited_max_ncpu = num_possible_cpus();
     g_max_power_OPP = 0;
     //g_limited_max_freq = g_max_freq_by_ptp;
