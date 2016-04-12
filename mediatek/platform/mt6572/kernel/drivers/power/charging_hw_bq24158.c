@@ -513,7 +513,7 @@ static void hw_bc11_dump_register(void)
     bq24158_config_interface_liao(0x00,0xC0);	//kick chip watch dog
     bq24158_config_interface_liao(0x01,0xb8);	//TE=1, CE=0, HZ_MODE=0, OPA_MODE=0
 //<2014/05/04-tedwu, Customize Battery/Charging parameters.
-    bq24158_config_interface_liao(0x05,0x04);  //special voltage = 4.52V
+    bq24158_config_interface_liao(0x05,0x03);  //special voltage = 4.44V
 #if defined(ARIMA_LO1_HW)
     if (BATTERY_PACK_BL_44JH == battery_pack_id)
         bq24158_config_interface_liao(0x04,0x1A); //146mA
