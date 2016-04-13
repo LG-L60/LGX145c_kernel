@@ -543,7 +543,7 @@ static void pchr_turn_on_charging (void)
                   //<2014/05/04-tedwu, Customize Battery/Charging parameters.
                   #if defined(ARIMA_LO1_HW)
                     if (BATTERY_PACK_BL_44JH == battery_pack_id)
-                        cv_voltage = BATTERY_VOLT_04_360000_V;
+                        cv_voltage = BATTERY_VOLT_04_340000_V;
                     else //BATTERY_PACK_BL_44JN
         	            cv_voltage = BATTERY_VOLT_04_200000_V;
                   #else

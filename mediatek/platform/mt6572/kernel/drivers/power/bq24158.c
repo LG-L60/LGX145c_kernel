@@ -604,12 +604,12 @@ static int bq24158_driver_probe(struct i2c_client *client, const struct i2c_devi
     bat_id_init_pin();
     bat_id = mt_get_gpio_in(GPIO_BATTERY_DATA_PIN);
     bat_id_deinit_pin();
-    if (GPIO_IN_ZERO == bat_id) {
-        battery_pack_id = BATTERY_PACK_BL_44JN;
-        bq24158_config_interface_liao(0x06,0x28); //=> 0x28, safety current= 0.91A, safety voltage=4.36V
-    } else {
+    if (GPIO_IN_ONE == bat_id) {
         battery_pack_id = BATTERY_PACK_BL_44JH;
-        bq24158_config_interface_liao(0x06,0x2A); //=> 0x2A, safety current= 0.91A, voltage=4.4V
+        bq24158_config_interface_liao(0x06,0x27); //=> 0x2A => 0x27, safety current= 0.91A, voltage=4.4V => 4.34V
+    } else {
+        battery_pack_id = BATTERY_PACK_BL_44JN;
+        bq24158_config_interface_liao(0x06,0x20); //=> 0x28 => 0x20, safety current= 0.91A, safety voltage=4.36V => 4.2V
     }
     battery_xlog_printk(BAT_LOG_CRTI,"Battery Pack: %d (JH:1 /JN:2)\n", battery_pack_id);
     chargin_hw_init_done = KAL_TRUE;

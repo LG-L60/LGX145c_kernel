@@ -500,9 +500,9 @@ static void hw_bc11_dump_register(void)
 	upmu_set_rg_usbdl_rst(1);		//force leave USBDL mode
 #if defined(ARIMA_LO1_HW)
     if (BATTERY_PACK_BL_44JH == battery_pack_id)
-        bq24158_config_interface_liao(0x06,0x2A); //=> 0x2A, safety current= 0.91A, voltage=4.4V
+        bq24158_config_interface_liao(0x06,0x27); //=> 0x2A => 0x27, safety current= 0.91A, voltage=4.4V => 4.34V
     else //BATTERY_PACK_BL_44JN
-        bq24158_config_interface_liao(0x06,0x28); //=> 0x28, safety current= 0.91A, safety voltage=4.36V
+        bq24158_config_interface_liao(0x06,0x20); //=> 0x28 => 0x20, safety current= 0.91A, safety voltage=4.36V => 4.2V
 #else
 	#if defined(HIGH_BATTERY_VOLTAGE_SUPPORT)
         bq24158_config_interface_liao(0x06,0x77); // ISAFE = 1250mA, VSAFE = 4.34V
@@ -514,20 +514,13 @@ static void hw_bc11_dump_register(void)
     bq24158_config_interface_liao(0x01,0xb8);	//TE=1, CE=0, HZ_MODE=0, OPA_MODE=0
 //<2014/05/04-tedwu, Customize Battery/Charging parameters.
     bq24158_config_interface_liao(0x05,0x03);  //special voltage = 4.44V
-#if defined(ARIMA_LO1_HW)
-    if (BATTERY_PACK_BL_44JH == battery_pack_id)
-        bq24158_config_interface_liao(0x04,0x1A); //146mA
-    else //BATTERY_PACK_BL_44JN
-        bq24158_config_interface_liao(0x04,0x19); //146mA //termination current=121mA
-#else
-    bq24158_config_interface_liao(0x04,0x1A); //146mA
-#endif
+
 	if ( !charging_init_flag ) {   
 #if defined(ARIMA_LO1_HW)
         if (BATTERY_PACK_BL_44JH == battery_pack_id)
-            bq24158_config_interface_liao(0x04,0x1A); //146mA
+            bq24158_config_interface_liao(0x04,0x19); //termination current=121mA
         else //BATTERY_PACK_BL_44JN
-            bq24158_config_interface_liao(0x04,0x19); //146mA //termination current=121mA
+            bq24158_config_interface_liao(0x04,0x10); //termination current=50mA
 #else
         bq24158_config_interface_liao(0x04,0x1A); //146mA
 #endif
