@@ -11,7 +11,7 @@
 #define HOTPLUG_LOG_WITH_XLOG                           1
 #define HOTPLUG_LOG_WITH_PRINTK                         2
 
-#define HOTPLUG_LOG_PRINT                               HOTPLUG_LOG_WITH_PRINTK
+#define HOTPLUG_LOG_PRINT                               HOTPLUG_LOG_NONE
 
 #if (HOTPLUG_LOG_PRINT == HOTPLUG_LOG_NONE)
 #define HOTPLUG_INFO(fmt, args...)                    
@@ -24,7 +24,7 @@
 
 /* profilling */
 //#define CONFIG_HOTPLUG_PROFILING                        
-#define CONFIG_HOTPLUG_PROFILING_COUNT                  100
+//#define CONFIG_HOTPLUG_PROFILING_COUNT                  100
 
 
 /* register address */
