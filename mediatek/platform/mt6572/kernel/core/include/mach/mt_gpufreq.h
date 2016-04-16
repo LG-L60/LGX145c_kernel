@@ -16,8 +16,8 @@
 /******************************
 * MFG Power Voltage Selection
 *******************************/
-#define GPU_VCORE_V0 (1250)
-#define GPU_VCORE_V1 (1150)
+#define GPU_VCORE_V0 DVFS_V0
+#define GPU_VCORE_V1 DVFS_V1
 
 /*****************************************
 * PMIC settle time, should not be changed

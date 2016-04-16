@@ -417,11 +417,11 @@ static void ptp_mon(void)
     }
 
     PTP_Init_value.DETWINDOW = 0x514;  //50 us. Detector sampling time as represented in cycles of bclk_ck
-    PTP_Init_value.VMAX = 0x58; // 1.3125v (700mv + n * 6.25mv)    
-    PTP_Init_value.VMIN = 0x48; // 1.15v (700mv + n * 6.25mv)    
+    PTP_Init_value.VMAX = PMIC_MAX_VCORE; // 1.3125v (700mv + n * 6.25mv)
+    PTP_Init_value.VMIN = PMIC_MIN_VCORE; // 1.15v (700mv + n * 6.25mv)
     PTP_Init_value.DTHI = 0x01; // positive
     PTP_Init_value.DTLO = 0xff; // negative (2's compliment) 0xff for monitor, but 0xfe for init1/2
-    PTP_Init_value.VBOOT = 0x48; // 115v  (700mv + n * 6.25mv)    
+    PTP_Init_value.VBOOT = PMIC_BOOT_VCORE; // 115v  (700mv + n * 6.25mv)
     PTP_Init_value.DETMAX = 0xffff; // This timeout value is in cycles of bclk_ck.
 
     // start test ============================================
@@ -479,11 +479,11 @@ static void ptp_init2(void)
     
 
     PTP_Init_value.DETWINDOW = 0x514; //40 us. Detector sampling time as represented in cycles of bclk_ck 
-    PTP_Init_value.VMAX = 0x58; // 1.25v (700mv + n * 6.25mv)    
-    PTP_Init_value.VMIN = 0x48; // 1.15v (700mv + n * 6.25mv)    
+    PTP_Init_value.VMAX = PMIC_MAX_VCORE; // 1.25v (700mv + n * 6.25mv)
+    PTP_Init_value.VMIN = PMIC_MIN_VCORE; // 1.15v (700mv + n * 6.25mv)
     PTP_Init_value.DTHI = 0x01; // positive
     PTP_Init_value.DTLO = 0xfe; // negative (2's compliment)
-    PTP_Init_value.VBOOT = 0x48; // 115v  (700mv + n * 6.25mv)    
+    PTP_Init_value.VBOOT = PMIC_BOOT_VCORE; // 115v  (700mv + n * 6.25mv)
     PTP_Init_value.DETMAX = 0xffff; // This timeout value is in cycles of bclk_ck.
 
     PTP_Init_value.DCVOFFSETIN = PTP_DCVOFFSET;

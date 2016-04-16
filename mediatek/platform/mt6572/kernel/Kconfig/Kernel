@@ -1,9 +1,17 @@
 # TODO naming refine
 menu "Kernel Configurations"
 
+menu "MTK Overclocking / Undervolting"
+
 config MTK_CPU_OVERCLOCK
 	tristate "Enable CPU overclocking"
         default n
+
+config MTK_CPU_UNDERVOLT
+	tristate "Enable CPU undervolting"
+        default n
+
+endmenu
 
 menu "Tracer Related"
 config MTK_SCHED_TRACERS

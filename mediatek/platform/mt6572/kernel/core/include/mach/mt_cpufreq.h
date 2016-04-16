@@ -31,10 +31,32 @@
 #define DVFS_F4              (494000)    // KHz
 #define DVFS_F5              (390000)    // KHz
 
+#if defined(CONFIG_MTK_CPU_OVERCLOCK)
+#undef CONFIG_MTK_CPU_UNDERVOLT
+#endif
+
+#if defined(CONFIG_MTK_CPU_UNDERVOLT) && !defined(CONFIG_MTK_CPU_OVERCLOCK)
+#define DVFS_V0              (1150)  // mV, OD
+#define DVFS_V1              (1090)  // mV
+#define DVFS_MIN_VCORE       (1090)  // mV
+
+#define PMIC_MAX_VCORE       (0x48)  // 1150mV
+#define PMIC_MIN_VCORE       (0x3D)  // 1090mV
+#define PMIC_BOOT_VCORE      (0x3D)  // 1090mV
+
+#else
 #define DVFS_V0              (1250)  // mV, OD
 #define DVFS_V1              (1150)  // mV
+#define DVFS_MIN_VCORE       (1150)  // mV
 
-#define DVFS_MIN_VCORE       (1150)
+#define PMIC_MAX_VCORE       (0x58)  // 1250mV
+#define PMIC_MIN_VCORE       (0x48)  // 1150mV
+#define PMIC_BOOT_VCORE      (0x48)  // 1150mV
+
+#endif
+
+#define PMIC_IDLE_VCORE      (0x38)   // 1050mV
+
 #define DEFAULT_FREQ         (1001000)   // KHz
 #define NOR_MAX_FREQ         (1001000)   // KHz
 

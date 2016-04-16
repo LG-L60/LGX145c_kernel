@@ -679,6 +679,8 @@ void mt_cpu_clock_switch(enum cpu_src src){
     }
 }
 
+/* Check the mapping for DVFS voltage and pmic wrap voltage */
+/* Need sync with mt_cpufreq_pdrv_probe() */
 void mt_vcore_freq_volt_set(unsigned int target_volt, unsigned int target_freq)
 {
 	  unsigned int i;
@@ -1675,6 +1677,8 @@ static ssize_t mt_cpufreq_set_usb_raise(struct file *file, const char *buffer, u
 /*******************************************
 * cpufrqe platform driver callback function
 ********************************************/
+/* Check the mapping for DVFS voltage and pmic wrap voltage */
+/* Need sync with mt_cpufreq_volt_set() */
 static int mt_cpufreq_pdrv_probe(struct platform_device *pdev)
 {
     int /* pmic_ctrl, */ ret, i , pmic_idx = 0;
@@ -1760,9 +1764,9 @@ static int mt_cpufreq_pdrv_probe(struct platform_device *pdev)
     mt65xx_reg_sync_writel(TOP_CKPDN0_SET, PMIC_WRAP_DVFS_ADR6);
     mt65xx_reg_sync_writel(TOP_CKPDN0_CLR, PMIC_WRAP_DVFS_ADR7);
 
-    mt65xx_reg_sync_writel(0x58, PMIC_WRAP_DVFS_WDATA0); // 1.25V
-    mt65xx_reg_sync_writel(0x48, PMIC_WRAP_DVFS_WDATA1); // 1.15V
-    mt65xx_reg_sync_writel(0x38, PMIC_WRAP_DVFS_WDATA2); // 1.05V, this is for spm firmware
+    mt65xx_reg_sync_writel(PMIC_MAX_VCORE, PMIC_WRAP_DVFS_WDATA0); // 1.25V
+    mt65xx_reg_sync_writel(PMIC_MIN_VCORE, PMIC_WRAP_DVFS_WDATA1); // 1.15V
+    mt65xx_reg_sync_writel(PMIC_IDLE_VCORE, PMIC_WRAP_DVFS_WDATA2); // 1.05V, this is for spm firmware
     mt65xx_reg_sync_writel(VOLT_TO_PMIC_VAL(spm_pmic_config[0].cpufreq_volt), PMIC_WRAP_DVFS_WDATA3); // 1.15V up + variation
     mt65xx_reg_sync_writel(VOLT_TO_PMIC_VAL(spm_pmic_config[1].cpufreq_volt), PMIC_WRAP_DVFS_WDATA4); // 1.15V up + variation
     mt65xx_reg_sync_writel(VOLT_TO_PMIC_VAL(spm_pmic_config[2].cpufreq_volt), PMIC_WRAP_DVFS_WDATA5); // 1.15V up + variation
