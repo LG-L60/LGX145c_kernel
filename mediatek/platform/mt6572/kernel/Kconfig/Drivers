@@ -355,6 +355,10 @@ config MT6326_PMIC # PMIC_MT6326
         depends on ARCH_MT6516
         default y
 
+config BATTERY_DISCHARGE_CURRENT_SENSE
+        tristate "Monitor Battery discharge current"
+        default y
+
 config MTK_SMART_BATTERY # 
         tristate "MediaTek Smart Battery Driver"
         default y
