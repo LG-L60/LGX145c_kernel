@@ -1,6 +1,10 @@
 # TODO naming refine
 menu "Kernel Configurations"
 
+config MTK_CPU_OVERCLOCK
+	tristate "Enable CPU overclocking"
+        default n
+
 menu "Tracer Related"
 config MTK_SCHED_TRACERS
         bool "MTK Sched Tracers"

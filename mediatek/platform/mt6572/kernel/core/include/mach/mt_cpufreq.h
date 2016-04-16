@@ -28,6 +28,8 @@
 #define DVFS_F1              (1001000)   // KHz
 #define DVFS_F2              (806000)    // KHz
 #define DVFS_F3              (598000)    // KHz
+#define DVFS_F4              (494000)    // KHz
+#define DVFS_F5              (390000)    // KHz
 
 #define DVFS_V0              (1250)  // mV, OD
 #define DVFS_V1              (1150)  // mV

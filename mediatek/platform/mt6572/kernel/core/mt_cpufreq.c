@@ -38,10 +38,6 @@
 #include "mach/mt_pmic_wrap.h"
 #include "mach/mt_dcm.h"
 #include "mach/mt_ptp.h"
-/**************************************************
-* enable CPU OVERCLOCK
-***************************************************/
-#define CONFIG_MTK_CPU_OVERCLOCK
 
 /**************************************************
 * enable for DVFS random test
@@ -81,7 +77,7 @@ static unsigned int g_cur_OPP;
 static unsigned int g_normal_max_OPP;
 static unsigned int g_fix_OPP;
 static unsigned int g_max_power_OPP;
-static unsigned int g_vcore = DVFS_V1;
+static unsigned int g_vcore = DVFS_V0;
 static unsigned int g_limited_power = 0;
 
 static unsigned int g_limited_max_ncpu;
@@ -143,19 +139,23 @@ struct mt_cpu_power_info
 static struct mt_cpu_freq_info mt6572_freqs_e1[] = {
 #if defined(CONFIG_MTK_CPU_OVERCLOCK)
 ///	включать не более 1 частоты и при этом выключать 1 частоту!
-//  OP(DVFS_E2, DVFS_V0),
-//  OP(DVFS_E1, DVFS_V0),
-//  OP(DVFS_D0, DVFS_V0),
-    OP(DVFS_E0, DVFS_V0),
-//  OP(DVFS_D1, DVFS_V0),
+    OP(DVFS_E2, DVFS_V0),	// 1.8GHz
+//  OP(DVFS_E1, DVFS_V0),	// 1.7GHz
+//  OP(DVFS_D0, DVFS_V0),	// 1.6GHz
+    OP(DVFS_E0, DVFS_V0),	// 1.5GHz
+//  OP(DVFS_D1, DVFS_V0),	// 1.4GHz
 #endif
-    OP(DVFS_D2, DVFS_V0),
+    OP(DVFS_D2, DVFS_V0),	// 1.3GHz
 #if !defined(CONFIG_MTK_CPU_OVERCLOCK)
-    OP(DVFS_D3, DVFS_V0),
+    OP(DVFS_D3, DVFS_V1),	// 1.2GHz
 #endif
-    OP(DVFS_F1, DVFS_V1),
-    OP(DVFS_F2, DVFS_V1),
-    OP(DVFS_F3, DVFS_V1),
+    OP(DVFS_F1, DVFS_V1),	// 1GHz
+#if !defined(CONFIG_MTK_CPU_OVERCLOCK)
+    OP(DVFS_F2, DVFS_V1),	// 806MHz
+#endif
+//    OP(DVFS_F3, DVFS_V1),	// 598MHz
+    OP(DVFS_F4, DVFS_V1),	// 494MHz
+//    OP(DVFS_F5, DVFS_V1),	// 390MHz
 };
 
 static struct mt_cpu_freq_info mt6572_freqs_e1_1[] = {
