@@ -71,7 +71,7 @@ static struct workqueue_struct *workqueue;
  * So we allow it it to be disabled.
  */
 bool use_spi_crc = 1;
-module_param(use_spi_crc, bool, 0);
+module_param(use_spi_crc, bool, 0644);
 
 /*
  * We normally treat cards as removed during suspend if they are not
@@ -2696,6 +2696,7 @@ int mmc_pm_notify(struct notifier_block *notify_block,
 	switch (mode) {
 	case PM_HIBERNATION_PREPARE:
 	case PM_SUSPEND_PREPARE:
+	case PM_RESTORE_PREPARE:
 
 		spin_lock_irqsave(&host->lock, flags);
 		if (mmc_bus_needs_resume(host)) {
