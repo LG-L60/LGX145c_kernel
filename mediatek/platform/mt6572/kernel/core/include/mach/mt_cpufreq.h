@@ -36,13 +36,13 @@
 #endif
 
 #if defined(CONFIG_MTK_CPU_UNDERVOLT) && !defined(CONFIG_MTK_CPU_OVERCLOCK)
-#define DVFS_V0              (1150)  // mV, OD
-#define DVFS_V1              (1090)  // mV
-#define DVFS_MIN_VCORE       (1090)  // mV
+#define DVFS_V0              (1100)  // mV, OD
+#define DVFS_V1              (1050)  // mV
+#define DVFS_MIN_VCORE       (1050)  // mV
 
-#define PMIC_MAX_VCORE       (0x48)  // 1150mV
-#define PMIC_MIN_VCORE       (0x3D)  // 1090mV
-#define PMIC_BOOT_VCORE      (0x3D)  // 1090mV
+#define PMIC_MAX_VCORE       (0x40)  // 1100mV
+#define PMIC_MIN_VCORE       (0x38)  // 1050mV
+#define PMIC_BOOT_VCORE      (0x38)  // 1050mV
 
 #else
 #define DVFS_V0              (1250)  // mV, OD
