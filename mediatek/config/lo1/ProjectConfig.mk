@@ -230,7 +230,7 @@ HAVE_AACENCODE_FEATURE=yes
 HAVE_ADPCMENCODE_FEATURE=yes
 
 # AEE (Android Exception Engine) that designed by Mediatek is an exception catching and debugging information generation mechanism.It can collect and dump information to filesystem (/sdcard/mtklog/aee_exp) when fatel occur(E.g. kernel panic/android system server crash and ..) HAVE_AEE_FEATURE will decide this feature enable or not.
-HAVE_AEE_FEATURE=yes
+HAVE_AEE_FEATURE=no
 
 # In Audio record,  Enable/disable AWB encode, yes: enable
 # no:disable
@@ -350,7 +350,7 @@ MTK_AUTO_DETECT_ALSPS=yes
 MTK_AUTO_DETECT_MAGNETOMETER=no
 
 # This feature enables basic configuration checks after bootup. If the configuration is incorrect, an AEE exception is thrown.
-MTK_AUTO_SANITY=yes
+MTK_AUTO_SANITY=no
 
 # use to enable/disable AVI playback feature. But, AVI is a default feature in ICS, we will use this macro to switch android AVI and MTK AVI, yes(default) => MTK AVI, no => Android AVI
 MTK_AVI_PLAYBACK_SUPPORT=yes
