@@ -83,7 +83,9 @@ sp_hacc_internal.isra.0:
 	.loc 1 172 0 discriminator 1
 	ldr	r1, .L21+4
 	ldr	r0, .L21+8
+#if defined(CONFIG_PRINTK)
 	bl	printk
+#endif
 	.loc 1 174 0 discriminator 1
 #APP
 @ 174 "alps/kernel/mediatek/platform/mt6572/kernel/drivers/masp/mach/hacc_export.c" 1
@@ -313,7 +315,9 @@ masp_hal_sp_hacc_init:
 .LVL28:
 	ldr	r0, .L32
 	str	ip, [sp, #0]
+#if defined(CONFIG_PRINTK)	
 	bl	printk
+#endif
 	.loc 1 226 0
 	sub	r0, fp, #48
 	bl	hacc_init

@@ -277,7 +277,9 @@ hacc_do_aes:
 .LVL45:
 	mov	r3, #16
 .LVL46:
+#if defined(CONFIG_PRINTK)
 	bl	printk
+#endif
 .LVL47:
 	.loc 1 209 0
 	movw	r0, #24579

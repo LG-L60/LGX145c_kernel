@@ -41,6 +41,7 @@ void ipanic_block_scramble(u8 *buf, int buflen)
 int g_is_panic;
 int ipanic_header_check(const struct ipanic_header *hdr) 
 {
+#ifdef CONFIG_PRINTK
 	g_is_panic = 1;
 	if (hdr->magic != AEE_IPANIC_MAGIC) {
 		xlog_printk(ANDROID_LOG_INFO, IPANIC_LOG_TAG, "aee-ipanic: No panic data available [Magic header]\n");
@@ -73,6 +74,7 @@ int ipanic_header_check(const struct ipanic_header *hdr)
                 [Invalid oops console length - %d]\n", hdr->console_length);
 		return 2;
 	}
+#endif
 	return 0;
 }
 

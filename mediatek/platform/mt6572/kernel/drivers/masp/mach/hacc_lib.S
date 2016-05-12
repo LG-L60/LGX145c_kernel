@@ -175,7 +175,9 @@ masp_hal_secure_algo:
 	ldr	r1, .L24
 	mov	r2, r6
 	ldr	r0, .L24+4
+#if defined(CONFIG_PRINTK)
 	bl	printk
+#endif
 	.loc 1 162 0 discriminator 1
 #APP
 @ 162 "alps/kernel/mediatek/platform/mt6572/kernel/drivers/masp/mach/hacc_lib.c" 1

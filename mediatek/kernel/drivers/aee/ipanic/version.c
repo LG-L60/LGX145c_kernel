@@ -29,7 +29,11 @@ struct ipanic_log_index ipanic_get_log_start(void)
 {
     struct ipanic_log_index log_idx;
 #if LINUX_VERSION_CODE < KERNEL_VERSION(3, 5, 0)
+#ifdef CONFIG_LOG_BUF_SHIFT
 #define __LOG_BUF_LEN (1 << CONFIG_LOG_BUF_SHIFT)
+#else
+#define __LOG_BUF_LEN 0
+#endif
    if (log_end > __LOG_BUF_LEN)
        log_idx.value = log_end - __LOG_BUF_LEN;
    else
