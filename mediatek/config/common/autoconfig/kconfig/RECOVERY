@@ -105,6 +105,8 @@ CONFIG_CMDLINE="console=ttyMT3,921600n1 vmalloc=496M slub_max_order=0 androidboo
 # Kernel Net Logging
 #
 # CONFIG_MTK_NET_LOGGING is not set
+# CONFIG_NETFILTER_NETLINK_LOG is not set
+# CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG is not set
 
 # Kernel Performance Events And Counters
 # CONFIG_PERF_EVENTS is not set

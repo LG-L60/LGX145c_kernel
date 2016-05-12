@@ -6,11 +6,11 @@
 
 #import /init.${ro.hardware}.rc
 import /init.usb.rc
-import /init.trace.rc
+#import /init.trace.rc
 
 import /FWUpgradeInit.rc
 
-import init.xlog.rc
+#import init.xlog.rc
 
 on early-init
     # Set init and its forked children's oom_adj.
@@ -49,7 +49,7 @@ on init
 
 sysclktz 0
 
-loglevel 5
+loglevel 1
     write /proc/bootprof "INIT: on init start"
 
 # setup the global environment
@@ -787,7 +787,7 @@ on boot
    start drvbd
 
     # xlog
-    start xlogboot
+#    start xlogboot
 
 # basic network init
     ifup lo
@@ -1670,9 +1670,9 @@ service sysctl /system/xbin/sysctld
     socket sysctl stream 0666 root root
     disabled
 
-service bt_ftrace /system/xbin/sysctld --bt-ftrace
-    user root
-    oneshot
+#service bt_ftrace /system/xbin/sysctld --bt-ftrace
+#    user root
+#    oneshot
 
 service sshd /system/bin/start-ssh
     class main

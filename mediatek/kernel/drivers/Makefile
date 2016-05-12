@@ -5,11 +5,15 @@ obj-y   +=  mtprof/
 obj-y   +=  clock/
 obj-y   +=  sched/
 obj-y   +=  mmp/
+ifeq ($(HAVE_XLOG_FEATURE),yes)
 obj-y   +=  xlog/
+endif
 obj-y   +=  uart/
 obj-y   +=  eint/
 obj-y   +=  boot/
+ifeq ($(CONFIG_MT_ENG_BUILD),y)
 obj-$(CONFIG_ZRAM) +=  mlog/
+endif
 obj-y   +=  gpu/
 obj-y	+=	gpio/
 obj-y   +=  aee/

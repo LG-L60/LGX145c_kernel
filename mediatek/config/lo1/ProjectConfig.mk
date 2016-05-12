@@ -244,7 +244,7 @@ HAVE_SRSAUDIOEFFECT_FEATURE=no
 HAVE_VORBISENC_FEATURE=yes
 
 # It decide whether the system has XLOG mechanism. XLOG is a log filter mechanism which can filter the logs by tag before they are written to log buffer
-HAVE_XLOG_FEATURE=yes
+HAVE_XLOG_FEATURE=no
 HW_HAVE_TP_THREAD=no
 IS_VCORE_USE_6333VCORE=no
 IS_VM_USE_6333VM=no
@@ -920,7 +920,7 @@ MTK_MD2_SUPPORT=4
 MTK_MD5_SUPPORT=5
 
 # It's used to control MDLogger which output the Modem Log and Memory dump information.
-MTK_MDLOGGER_SUPPORT=yes
+MTK_MDLOGGER_SUPPORT=no
 
 # Switch for DM in-house solution.
 MTK_MDM_APP=no
