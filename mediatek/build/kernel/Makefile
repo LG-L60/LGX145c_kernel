@@ -41,6 +41,10 @@ ifeq ($(TARGET_BUILD_VARIANT),user)
  KBUILD_CFLAGS += -DUSER_BUILD_KERNEL
 endif
 
+ifeq ($(TARGET_BUILD_VARIANT),recovery)
+ KBUILD_CFLAGS += -DUSER_BUILD_KERNEL
+endif
+
 ifeq (,$(M))
 clean: mtkclean
 mtkclean:

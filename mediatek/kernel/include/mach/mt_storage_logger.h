@@ -19,17 +19,6 @@
 
 
 #define SLTAG "[StorageLogger]"
-#define SLog_MSG(fmt, args...) \
-do {    \
-		printk(KERN_INFO SLTAG""fmt" <- %s(): L<%d>  PID<%s><%d>\n", \
-            	##args , __FUNCTION__, __LINE__, current->comm, current->pid); \
-} while(0);
-
-#define STrace_MSG(fmt, args...) \
-do {    \
-		printk(KERN_INFO SLTAG""fmt" in PID<%s><%d>\n", \
-            	##args, current->comm, current->pid); \
-} while(0);
 
 struct _loggerFuncName
 {
@@ -200,9 +189,38 @@ enum logger_type
 
 #define CREATE_PROC_ENTRY(proc,x,y,z,o) proc = proc_create(x,y,z,o)
 
+#define SLog_MSG(fmt, args...) \
+do {    \
+		printk(KERN_INFO SLTAG""fmt" <- %s(): L<%d>  PID<%s><%d>\n", \
+            	##args , __FUNCTION__, __LINE__, current->comm, current->pid); \
+} while(0);
+
+#define STrace_MSG(fmt, args...) \
+do {    \
+		printk(KERN_INFO SLTAG""fmt" in PID<%s><%d>\n", \
+            	##args, current->comm, current->pid); \
+} while(0);
+
+#define AddStorageTrace(msg_id,name, ...) \
+	add_trace(LOGGER_TYPE_STORAGE, msg_id, __LINE__, \
+		STORAGE_LOG_API___##name##__func, __VA_ARGS__);
+
+#define ADD_USB_TRACE(func_id, name, ...) \
+	add_trace(LOGGER_TYPE_USB, USB_LOGGER_MSG_##func_id, __LINE__, \
+		USB_FUNC_STRING_INDEX_##name, __VA_ARGS__);
+
+#define AddThrmlTrace(msg_id, name, ...) \
+	add_trace(LOGGER_TYPE_THRML, msg_id, __LINE__, \
+		THRML_FID_##name, __VA_ARGS__);
+	
 #else
 
 #define CREATE_PROC_ENTRY(proc,x,y,z,o)
+#define SLog_MSG(fmt, args...)
+#define STrace_MSG(fmt, args...)
+#define AddStorageTrace(msg_id,name, ...)
+#define ADD_USB_TRACE(func_id, name, ...)
+#define AddThrmlTrace(msg_id, name, ...)
 
 #endif
 
@@ -223,23 +241,12 @@ extern bool ioschedule_dump(void);
 /*======= File System PART========*/
 extern int dumpFsRecTime(void);
 
-#define AddStorageTrace(msg_id,name, ...) \
-	add_trace(LOGGER_TYPE_STORAGE, msg_id, __LINE__, \
-		STORAGE_LOG_API___##name##__func, __VA_ARGS__);
 /*========USB PART========*/
 extern bool is_dump_musb(void);
 extern bool is_dump_usb_gadget(void);
 
-#define ADD_USB_TRACE(func_id, name, ...) \
-	add_trace(LOGGER_TYPE_USB, USB_LOGGER_MSG_##func_id, __LINE__, \
-		USB_FUNC_STRING_INDEX_##name, __VA_ARGS__);
-
 /*======Thermal PART======*/
 extern bool is_dump_mthermal(void);
-
-#define AddThrmlTrace(msg_id, name, ...) \
-	add_trace(LOGGER_TYPE_THRML, msg_id, __LINE__, \
-		THRML_FID_##name, __VA_ARGS__);
 
 /*========================*/
 #endif/* !__MT_STORAGE_LOGGER_H__ */

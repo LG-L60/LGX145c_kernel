@@ -38,4 +38,8 @@ extern unsigned long mtk_memcfg_set_bypass_slub_debug_flag(unsigned long);
 
 #endif /* end CONFIG_MTK_MEMCFG */
 
+#ifdef USER_BUILD_KERNEL	/* user build */
+#define MTK_MEMCFG_LOG_AND_PRINTK(fmt, arg...)
+#endif	/* USER_BUILD_KERNEL */
+
 #endif /* end __MTK_MEMCFG_H__ */

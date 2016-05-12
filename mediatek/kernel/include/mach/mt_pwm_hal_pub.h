@@ -32,7 +32,13 @@
 	#define PWMDBG(fmt, args ...)
 #endif
 
+
+#ifdef USER_BUILD_KERNEL	/* user build */
+#define PWMDBG(fmt, args ...)
+#define PWMMSG(fmt, args ...)
+#else	/* engineering build */
 #define PWMMSG(fmt, args ...)  printk(KERN_INFO fmt, ##args)
+#endif	/* USER_BUILD_KERNEL */
 
 #define PWM_DEVICE "mt-pwm"
 

@@ -20,14 +20,6 @@
 #ifndef USER_BUILD_KERNEL//engineering mode
 
 #define IO_LOGGER_ENABLE 1
-#else 
-#define IO_LOGGER_ENABLE 0
-#endif
-
-#define IO_LOGGER_TRACE_T 50000000
-#define IO_DUMP_LOGGER_T 5000000000
-
-#define ILTAG "[IOLogger]"
 #define ILog_MSG(fmt, args...) \
 do {    \
 		printk(KERN_INFO ILTAG""fmt" <- %s(): L<%d>  PID<%s><%d>\n", \
@@ -39,6 +31,19 @@ do {    \
 		printk(KERN_INFO ILTAG""fmt" in PID<%s><%d>\n", \
             	##args, current->comm, current->pid); \
 } while(0);
+
+#else 	/* user build */
+
+#define IO_LOGGER_ENABLE 0
+#define ILog_MSG(fmt, args...)
+#define ITrace_MSG(fmt, args...)
+
+#endif
+
+#define IO_LOGGER_TRACE_T 50000000
+#define IO_DUMP_LOGGER_T 5000000000
+
+#define ILTAG "[IOLogger]"
 
 struct _loggerFuncName_
 {

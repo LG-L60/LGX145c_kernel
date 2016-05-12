@@ -9,12 +9,21 @@
 #define BM_LOG_CRTI 1
 #define BM_LOG_FULL 2
 
+#ifndef USER_BUILD_KERNEL	//engineering build
+#pragma message 'BATTERY_LOG_ENABLED'
 #define bm_print(num, fmt, args...)   \
 do {									\
 	if (Enable_FGADC_LOG >= (int)num) {				\
 		xlog_printk(ANDROID_LOG_INFO, "Power/BatMeter", fmt, ##args); \
 	}								   \
 } while(0)
+
+#else	/* user build */
+
+#pragma message 'BATTERY_LOG_DISABLED'
+#define bm_print(num, fmt, args...)
+
+#endif	/* engineering build */
 
 
 // ============================================================
