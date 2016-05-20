@@ -151,7 +151,7 @@ static DEFINE_MUTEX(dbs_mutex);
  */
 static DEFINE_MUTEX(hp_mutex);
 
-DEFINE_MUTEX(hp_onoff_mutex);
+DEFINE_MUTEX(hb_onoff_mutex);
 
 static struct dbs_tuners {
     unsigned int sampling_rate;
@@ -793,7 +793,7 @@ static int hb_check_grade(int load)
 
 static void hp_work_handler(struct work_struct *work)
 {
-	if (mutex_trylock(&hp_onoff_mutex))
+	if (mutex_trylock(&hb_onoff_mutex))
 	{
 		if (!g_disable_hotplug)
 		{
@@ -810,7 +810,7 @@ static void hp_work_handler(struct work_struct *work)
 				printk("hp_work_handler: cpu_down completion\n");
 			}
 		}
-		mutex_unlock(&hp_onoff_mutex);
+		mutex_unlock(&hb_onoff_mutex);
 	}
 }
 
