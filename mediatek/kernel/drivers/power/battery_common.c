@@ -1196,7 +1196,7 @@ static ssize_t show_FG_Battery_CurrentConsumption(struct device *dev,struct devi
     int ret_value=8888;
     ret_value = battery_meter_get_battery_current();    
     battery_xlog_printk(BAT_LOG_CRTI, "[EM] FG_Battery_CurrentConsumption : %d/10 mA\n", ret_value);
-    return sprintf(buf, "%u\n", ret_value);
+    return sprintf(buf, "%d\n", ret_value);
 }
 static ssize_t store_FG_Battery_CurrentConsumption(struct device *dev,struct device_attribute *attr, const char *buf, size_t size)
 {
