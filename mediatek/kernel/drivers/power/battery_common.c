@@ -1412,6 +1412,7 @@ static void mt_battery_Sync_UI_Percentage_to_Real(void)
 	if( (BMT_status.UI_SOC > BMT_status.SOC) && ((BMT_status.UI_SOC!=1)) )
     {   
         //reduce after xxs
+        #if defined(ARIMA_LO1_HW) || defined(ARIMA_LO2_HW)
 		//battery_charging_control(CHARGING_CMD_GET_IS_PCM_TIMER_TRIGGER,&is_pcm_timer_trigger);
     	//if(is_pcm_timer_trigger == KAL_TRUE || bat_spm_timeout)
     	if(bat_spm_timeout_sync_ui_soc)
@@ -1450,10 +1451,17 @@ static void mt_battery_Sync_UI_Percentage_to_Real(void)
 			BMT_status.UI_SOC--;
 			timer_counter = 0;
 		}
-		//else
-		//{
-		//	timer_counter ++;
-		//}
+#else
+		if(timer_counter >= (SYNC_TO_REAL_TRACKING_TIME/BAT_TASK_PERIOD))
+		{
+			BMT_status.UI_SOC--;
+			timer_counter = 0;
+		}
+		else
+		{
+			timer_counter ++;
+		}
+#endif
 //>2014/06/11-tedwu
 
 		battery_xlog_printk(BAT_LOG_CRTI, "Sync UI percentage to Real one, BMT_status.UI_SOC=%d, BMT_status.SOC=%d, counter = %d\r\n", 
@@ -2660,6 +2668,8 @@ void update_battery_2nd_info(int status_2nd, int capacity_2nd, int present_2nd)
 
 void do_chrdet_int_task(void)
 {
+    kal_uint32 charging_enable;
+
     if(g_bat_init_flag == KAL_TRUE)
     {
         if( upmu_is_chr_det() == KAL_TRUE )
@@ -2683,6 +2693,8 @@ void do_chrdet_int_task(void)
         }
         else
         {
+            charging_enable = KAL_FALSE;
+            battery_charging_control(CHARGING_CMD_ENABLE,&charging_enable);	/*  Disable charger */
        	    battery_xlog_printk(BAT_LOG_CRTI, "[do_chrdet_int_task] charger NOT exist!\n");
             BMT_status.charger_exist = KAL_FALSE;
     		
@@ -2760,6 +2772,7 @@ void BAT_thread(void)
 
     if( BMT_status.charger_exist == KAL_TRUE )
     {
+        msleep(3000);
         mt_battery_CheckBatteryStatus();	    
         mt_battery_charging_algorithm();
     }
@@ -3070,10 +3083,12 @@ int charger_hv_detect_sw_thread_handler(void *unused)
 		if(hv_status == KAL_TRUE)
         {
             battery_xlog_printk(BAT_LOG_CRTI, "[charger_hv_detect_sw_thread_handler] charger hv\n");    
-            
-			charging_enable = KAL_FALSE;
+
 			if(chargin_hw_init_done)
+			{
+				charging_enable = KAL_FALSE;
 				battery_charging_control(CHARGING_CMD_ENABLE,&charging_enable);
+			}
         }
         else
         {
