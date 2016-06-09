@@ -162,6 +162,10 @@ config CPU_FREQ_DEFAULT_GOV_WHEATLEY
        help
          Use the CPUFreq governor 'wheatley' as default.
 
+config CPU_FREQ_DEFAULT_GOV_LULZACTIVEQ
+        bool "lulzactiveq"
+        select CPU_FREQ_GOV_LULZACTIVEQ
+
 config CPU_FREQ_DEFAULT_GOV_NIGHTMARE
         bool "nightmare"
         select CPU_FREQ_GOV_NIGHTMARE
@@ -344,6 +348,12 @@ config CPU_FREQ_GOV_PEGASUSQ
 config CPU_FREQ_GOV_WHEATLEY
         tristate "'wheatley' cpufreq governor"
         depends on CPU_FREQ
+
+config CPU_FREQ_GOV_LULZACTIVEQ
+        tristate "'lulzactiveq' cpufreq governor"
+        depends on CPU_FREQ
+        help
+          'lulzactiveq' - hotplug mechanism added in lulzactive
 
 config CPU_FREQ_GOV_SAKURACTIVE
         tristate "'sakuractive' cpufreq governor"
