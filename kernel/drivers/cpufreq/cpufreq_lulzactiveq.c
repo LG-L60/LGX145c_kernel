@@ -401,12 +401,12 @@ static inline void fix_screen_off_min_step(struct cpufreq_lulzactive_cpuinfo *pc
 
 	if (DEFAULT_SCREEN_OFF_MIN_STEP == screen_off_min_step)
 		for(screen_off_min_step=0;
-		pcpu->lulzfreq_table[screen_off_min_step].frequency != 1001000;
+		pcpu->lulzfreq_table[screen_off_min_step].frequency != 500000;
 		screen_off_min_step++);
 
 	if (screen_off_min_step >= pcpu->lulzfreq_table_size)
 		for(screen_off_min_step=0;
-		pcpu->lulzfreq_table[screen_off_min_step].frequency != 1001000;
+		pcpu->lulzfreq_table[screen_off_min_step].frequency != 500000;
 		screen_off_min_step++);
 }
 
@@ -2083,11 +2083,11 @@ void start_lulzactiveq(void)
 		pcpu = &per_cpu(cpuinfo, 0);
 		cpufreq_frequency_table_target(
 				pcpu->policy, pcpu->lulzfreq_table,
-				1001000, CPUFREQ_RELATION_H,
+				500000, CPUFREQ_RELATION_H,
 				&index500);
 		cpufreq_frequency_table_target(
 				pcpu->policy, pcpu->lulzfreq_table,
-				1300000, CPUFREQ_RELATION_H,
+				800000, CPUFREQ_RELATION_H,
 				&index800);
 		for(i=index800;i<index500;i++)
 		{
