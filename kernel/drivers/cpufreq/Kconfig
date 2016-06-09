@@ -151,6 +151,15 @@ config CPU_FREQ_DEFAULT_GOV_SMARTASS2
         help
           Use the CPUFreq governor 'smartassV2' as default.
 
+config CPU_FREQ_DEFAULT_GOV_INTERACTIVEX
+        bool "interactiveX"
+        select CPU_FREQ_GOV_INTERACTIVE
+        help
+          Use the CPUFreq governor 'interactive' as default. This allows
+          you to get a full dynamic cpu frequency capable system by simply
+          loading your cpufreq low-level hardware driver, using the
+          'interactive' governor for latency-sensitive workloads.
+
 config CPU_FREQ_DEFAULT_GOV_PEGASUSQ
         bool "pegasusq"
         select CPU_FREQ_GOV_PEGASUSQ
@@ -341,6 +350,9 @@ config CPU_FREQ_GOV_SMARTASS2
           'smartassV2' - a "smart" optimized governor for the hero!
 
           If in doubt, say N.
+
+config CPU_FREQ_GOV_INTERACTIVEX
+        tristate "'interactiveX' cpufreq policy governor"
 
 config CPU_FREQ_GOV_PEGASUSQ
         tristate "'pegasusq' cpufreq policy governor"
