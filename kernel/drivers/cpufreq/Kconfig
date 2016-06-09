@@ -151,6 +151,10 @@ config CPU_FREQ_DEFAULT_GOV_SMARTASS2
         help
           Use the CPUFreq governor 'smartassV2' as default.
 
+config CPU_FREQ_DEFAULT_GOV_PEGASUSQ
+        bool "pegasusq"
+        select CPU_FREQ_GOV_PEGASUSQ
+
 config CPU_FREQ_DEFAULT_GOV_WHEATLEY
        bool "wheatley"
        select CPU_FREQ_GOV_WHEATLEY
@@ -329,6 +333,9 @@ config CPU_FREQ_GOV_SMARTASS2
           'smartassV2' - a "smart" optimized governor for the hero!
 
           If in doubt, say N.
+
+config CPU_FREQ_GOV_PEGASUSQ
+        tristate "'pegasusq' cpufreq policy governor"
 
 config CPU_FREQ_GOV_WHEATLEY
         tristate "'wheatley' cpufreq governor"
