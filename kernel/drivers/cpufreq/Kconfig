@@ -182,6 +182,15 @@ config CPU_FREQ_DEFAULT_GOV_WHEATLEY
        help
          Use the CPUFreq governor 'wheatley' as default.
 
+config CPU_FREQ_DEFAULT_GOV_ZZMOOVE
+        bool "zzmoove"
+        select CPU_FREQ_GOV_ZZMOOVE
+        select CPU_FREQ_GOV_PERFORMANCE
+        help
+          Use the CPUFreq governor 'zzmoove' as default, using predefined
+          frequency lookup tables and optimized scaling triggers instead of
+          % frequency steps to get smooth up/downscaling dependant on CPU load.
+
 config CPU_FREQ_DEFAULT_GOV_LULZACTIVEQ
         bool "lulzactiveq"
         select CPU_FREQ_GOV_LULZACTIVEQ
@@ -389,6 +398,16 @@ config CPU_FREQ_GOV_PEGASUSQ
 config CPU_FREQ_GOV_WHEATLEY
         tristate "'wheatley' cpufreq governor"
         depends on CPU_FREQ
+
+config CPU_FREQ_GOV_ZZMOOVE
+        tristate "'zzmoove' cpufreq governor"
+        depends on CPU_FREQ
+        help
+          'zzmoove' - based on cpufreq_conservative, using predefined
+          frequency lookup tables and optimized scaling triggers instead of
+          % frequency steps to get smooth up/downscaling dependant on CPU load.
+
+          If in doubt, say N.
 
 config CPU_FREQ_GOV_LULZACTIVEQ
         tristate "'lulzactiveq' cpufreq governor"
