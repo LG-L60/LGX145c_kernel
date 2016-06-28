@@ -282,6 +282,10 @@ endif # NETWORK_FILESYSTEMS
 source "fs/nls/Kconfig"
 source "fs/dlm/Kconfig"
 
+config FSYNC_CONTROL_SWITCH
+	bool "file sync control switch"
+	default n
+
 config DYNAMIC_FSYNC
 	bool "dynamic file sync control"
 	default n
@@ -290,6 +294,6 @@ config DYNAMIC_FSYNC
 
 config ASYNC_FSYNC
 	bool "asynchronous fsync"
-	default y
+	default n
 
 endmenu

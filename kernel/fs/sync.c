@@ -16,6 +16,9 @@
 #include <linux/quotaops.h>
 #include <linux/backing-dev.h>
 #include "internal.h"
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+#include <linux/module.h>
+#endif
 #ifdef CONFIG_ASYNC_FSYNC
 #include <linux/statfs.h>
 #endif
@@ -25,6 +28,12 @@
 #undef FEATURE_PRINT_FSYNC_PID
 #endif
 #include <linux/xlog.h>
+
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+bool fsync_enabled = true;
+module_param(fsync_enabled, bool, 0644);
+#endif
+
 #ifdef CONFIG_DYNAMIC_FSYNC
 extern bool early_suspend_active;
 extern bool dyn_fsync_active;
@@ -406,6 +415,9 @@ SYSCALL_DEFINE1(syncfs, int, fd)
 	int ret;
 	int fput_needed;
 
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 	file = fget_light(fd, &fput_needed);
 	if (!file)
 		return -EBADF;
@@ -439,8 +451,11 @@ int vfs_fsync_range(struct file *file, loff_t start, loff_t end, int datasync)
 	bool ptr_flag=false;
 #endif	
 
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 
-	#ifdef CONFIG_DYNAMIC_FSYNC
+#ifdef CONFIG_DYNAMIC_FSYNC
 	if (likely(dyn_fsync_active && !early_suspend_active))
 		return 0;
 	else {
@@ -532,6 +547,9 @@ EXPORT_SYMBOL(vfs_fsync_range);
  */
 int vfs_fsync(struct file *file, int datasync)
 {
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 	return vfs_fsync_range(file, 0, LLONG_MAX, datasync);
 }
 EXPORT_SYMBOL(vfs_fsync);
@@ -598,7 +616,9 @@ static int do_fsync(unsigned int fd, int datasync)
 #ifdef CONFIG_ASYNC_FSYNC
 	struct fsync_work *fwork;
 #endif
-
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 	file = fget(fd);
 	if (file) {
 		ktime_t fsync_t, fsync_diff;
@@ -646,6 +666,9 @@ no_async:
 
 SYSCALL_DEFINE1(fsync, unsigned int, fd)
 {
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 	#ifdef CONFIG_DYNAMIC_FSYNC
 	if (likely(dyn_fsync_active && !early_suspend_active))
 		return 0;
@@ -656,6 +679,9 @@ SYSCALL_DEFINE1(fsync, unsigned int, fd)
 
 SYSCALL_DEFINE1(fdatasync, unsigned int, fd)
 {
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 	return do_fsync(fd, 1);
 }
 
@@ -669,6 +695,9 @@ SYSCALL_DEFINE1(fdatasync, unsigned int, fd)
  */
 int generic_write_sync(struct file *file, loff_t pos, loff_t count)
 {
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 	if (!(file->f_flags & O_DSYNC) && !IS_SYNC(file->f_mapping->host))
 		return 0;
 	return vfs_fsync_range(file, pos, pos + count - 1,
@@ -726,6 +755,9 @@ EXPORT_SYMBOL(generic_write_sync);
 SYSCALL_DEFINE(sync_file_range)(int fd, loff_t offset, loff_t nbytes,
 				unsigned int flags)
 {
+#ifdef CONFIG_FSYNC_CONTROL_SWITCH
+	if (!fsync_enabled) {return 0;}
+#endif
 #ifdef CONFIG_DYNAMIC_FSYNC
 	if (likely(dyn_fsync_active && !early_suspend_active))
 		return 0;
