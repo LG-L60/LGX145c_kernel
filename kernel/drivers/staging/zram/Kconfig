@@ -16,6 +16,14 @@ config ZRAM
 	  See zram.txt for more information.
 	  Project home: http://compcache.googlecode.com/
 
+config FIXED_SIZE_ZRAM
+	bool "Fixed size compressed RAM block device "
+	depends on ZRAM
+	default n
+	help
+	  This option fixes the size of the compressed RAM block device
+	  (75% of RAM size)
+
 config ZRAM_DEBUG
 	bool "Compressed RAM block device debug support"
 	depends on ZRAM

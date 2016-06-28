@@ -59,8 +59,17 @@ static ssize_t disksize_store(struct device *dev,
 	struct zram_meta *meta;
 	struct zram *zram = dev_to_zram(dev);
 
-#if 0
+#ifndef CONFIG_FIXED_SIZE_ZRAM
 	disksize = memparse(buf, NULL);
+	if (disksize > (totalram_pages << PAGE_SHIFT)) {
+		disksize = default_disksize_perc_ram * ((totalram_pages << PAGE_SHIFT) / 100);
+		/* Expand its disksize if we have little system ram! */
+		if (totalram_pages < SUPPOSED_TOTALRAM) {
+			disksize += (disksize >> 1) ;
+		}
+		/* Align it! */
+		disksize = round_up(disksize, DISKSIZE_ALIGNMENT);
+	}
 	/*
 	if (!disksize)
 		return -EINVAL;
