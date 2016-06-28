@@ -354,9 +354,15 @@ CHECK		= sparse
 
 CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
 		  -Wbitwise -Wno-return-void $(CF)
+ifdef USER_BUILD_KERNEL
+OPTFLAGS = -DNDEBUG -mcpu=cortex-a7 -mtune=cortex-a7 -mfpu=neon-vfpv4 \
+	   -ffast-math -fsingle-precision-constant \
+	   -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr
+else
 OPTFLAGS = -mcpu=cortex-a7 -mtune=cortex-a7 -mfpu=neon-vfpv4 \
 	   -ffast-math -fsingle-precision-constant \
 	   -fgcse-lm -fgcse-sm -fsched-spec-load -fforce-addr
+endif
 CFLAGS_MODULE   = -fno-pic -fgcse-las $(OPTFLAGS)
 AFLAGS_MODULE   = $(OPTFLAGS)
 LDFLAGS_MODULE  =
@@ -583,6 +589,9 @@ endif # $(dot-config)
 # Defaults to vmlinux, but the arch makefile usually adds further targets
 all: vmlinux
 
+ifdef CONFIG_CC_OPTIMIZE_FOR_RECOVERY
+KBUILD_CFLAGS	+= -O
+else
 ifdef CONFIG_CC_OPTIMIZE_FOR_SIZE
 KBUILD_CFLAGS	+= -Os
 else
@@ -590,6 +599,7 @@ ifdef CONFIG_CC_MOST_OPTIMIZE
 KBUILD_CFLAGS += -O3 -fmodulo-sched -fmodulo-sched-allow-regmoves -fno-tree-vectorize
 else
 KBUILD_CFLAGS	+= -O2
+endif
 endif
 endif
 

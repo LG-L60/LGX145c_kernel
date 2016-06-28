@@ -42,8 +42,8 @@ ifneq ($(TARGET_BUILD_VARIANT),user)
 #ccflags-y  += -DCCCI_DEBUG_ON -D__CCCI_LOG__  -DCCCI_MD_DEBUG_ON  #-save-temps
 ccflags-y  += -DCCCI_DEBUG_ON  -DCCCI_MD_DEBUG_ON  #-save-temps
 #ccflags-y  += -DENCRYPT_DEBUG -DCCCI_RPC_DEBUG_ON
-endif
 ccflags-y  += -D__CCCI_LOG__
+endif
 
 else 
 obj- :=dummy.o

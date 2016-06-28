@@ -940,6 +940,14 @@ source "usr/Kconfig"
 
 endif
 
+config CC_OPTIMIZE_FOR_RECOVERY
+	bool "Optimize for recovery image size"
+	help
+	  Enabling this option will pass "-O" instead of "-O2" to gcc
+	  resulting in a bigger kernel, but smaller compressed zImage.
+
+	  If unsure, say N.
+
 config CC_OPTIMIZE_FOR_SIZE
 	bool "Optimize for size"
 	help
@@ -951,7 +959,7 @@ config CC_OPTIMIZE_FOR_SIZE
 config CC_MOST_OPTIMIZE
 	bool "Most Optimize"
 	help
-	  Enabling this option will pass "-O3" instead of "-O2" to gccFelif.
+	  Enabling this option will pass "-O3" instead of "-O2" to gcc.
 
 	  If unsure, say N.
 
