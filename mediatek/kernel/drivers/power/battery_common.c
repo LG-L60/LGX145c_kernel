@@ -312,7 +312,7 @@ kal_bool upmu_is_chr_det(void)
 #else	
     kal_uint32 tmp32;
 //<2014/07/04-tedwu, (mtk patch)add delay for LO2 charger.
-#if defined(ARIMA_LO2_HW)
+//#if defined(ARIMA_LO2_HW)
     static kal_bool first_in = KAL_TRUE;
     #if defined(MTK_KERNEL_POWER_OFF_CHARGING)
     if (g_boot_mode == KERNEL_POWER_OFF_CHARGING_BOOT || g_boot_mode == LOW_POWER_OFF_CHARGING_BOOT)
@@ -325,7 +325,7 @@ kal_bool upmu_is_chr_det(void)
         }
     }
     #endif
-#endif
+//#endif
 //>2014/07/04-tedwu
     tmp32=get_charger_detect_status();
 
@@ -2785,7 +2785,7 @@ void BAT_thread(void)
 ///////////////////////////////////////////////////////////////////////////////////////////
 int bat_thread_kthread(void *x)
 {
-    ktime_t ktime = ktime_set(3, 0);  // 10s, 10* 1000 ms	
+    ktime_t ktime = ktime_set(BAT_TASK_PERIOD, 0);  // 10s, 10* 1000 ms	
     
     /* Run on a process content */  
     while (1) {               
@@ -3145,7 +3145,7 @@ void battery_kthread_hrtimer_init(void)
 {
     ktime_t ktime;
 
-    ktime = ktime_set(1, 0);	// 3s, 10* 1000 ms
+    ktime = ktime_set(3, 0);	// 3s, 10* 1000 ms
     hrtimer_init(&battery_kthread_timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
     battery_kthread_timer.function = battery_kthread_hrtimer_func;    
     hrtimer_start(&battery_kthread_timer, ktime, HRTIMER_MODE_REL);
